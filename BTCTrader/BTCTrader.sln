@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader", "BTCTrader\BTCTrader.csproj", "{6BC88872-7501-4DF5-BA49-298381D2EF8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Entities", "BTCTrader.Entities\BTCTrader.Entities.csproj", "{D9DABF62-C06D-4AFC-AE38-D27B936F8507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Models", "BTCTrader.Models\BTCTrader.Models.csproj", "{5703F28C-5F1D-46A3-94D7-123F7C647FA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Tests", "BTCTrader.Tests\BTCTrader.Tests.csproj", "{F088F2A9-8D40-40D3-BDAE-84768A475D54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Api", "BTCTrader.ApiClient\BTCTrader.Api.csproj", "{277CD676-9E9D-47F8-857C-D1B1CB16197F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{6BC88872-7501-4DF5-BA49-298381D2EF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BC88872-7501-4DF5-BA49-298381D2EF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BC88872-7501-4DF5-BA49-298381D2EF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9DABF62-C06D-4AFC-AE38-D27B936F8507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DABF62-C06D-4AFC-AE38-D27B936F8507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9DABF62-C06D-4AFC-AE38-D27B936F8507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9DABF62-C06D-4AFC-AE38-D27B936F8507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

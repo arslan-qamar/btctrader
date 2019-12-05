@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BTCTrader.Entities\BTCTrader.Entities.csproj" />
     <ProjectReference Include="..\BTCTrader.Models\BTCTrader.Models.csproj" />
   </ItemGroup>
 

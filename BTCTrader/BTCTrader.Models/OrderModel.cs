@@ -2,8 +2,11 @@
 
 namespace BTCTrader.Models
 {
-    public class NewOrderModel
+    public class OrderModel
     {
+        [JsonProperty("orderId")]
+        public string OrderId { get; set; }
+
         [JsonProperty("marketId")]
         public string MarketId { get; set; }
 
@@ -36,5 +39,15 @@ namespace BTCTrader.Models
 
         [JsonProperty("clientOrderId")]
         public string ClientOrderId { get; set; }
+
+        [JsonProperty("creationTime")]
+        public string CreationTime { get; set; }
+
+        [JsonProperty("openAmount")]
+        public string OpenAmount { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
     }
 }

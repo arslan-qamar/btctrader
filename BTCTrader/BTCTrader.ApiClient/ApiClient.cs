@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using BTCTrader.Models;
+using BTCTrader.Entities;
 
 namespace BTCTrader.Api
 {
@@ -15,11 +16,11 @@ namespace BTCTrader.Api
         private readonly string _apiKey;
         private readonly string _privateKey;
 
-        public ApiClient(string baseUrl, string apiKey, string privateKey)
-        {
-            _baseUrl = baseUrl;
-            _apiKey = apiKey;
-            _privateKey = privateKey;
+        public ApiClient(AppSettings appSettings)
+        {            
+            _baseUrl = appSettings.BaseUrl;
+            _apiKey = appSettings.ApiKey;
+            _privateKey = appSettings.PrivateKey;
         }
 
         public async Task<ResponseModel> Get(string path, string queryString)

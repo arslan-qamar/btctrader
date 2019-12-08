@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BTCTrader.Models
+namespace BTCTrader.Models.Order
 {
     public class OrderModel
     {

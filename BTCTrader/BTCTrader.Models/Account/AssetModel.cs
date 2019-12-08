@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-namespace BTCTrader.Models
+namespace BTCTrader.Models.Account
 {
     public class AssetModel
     {

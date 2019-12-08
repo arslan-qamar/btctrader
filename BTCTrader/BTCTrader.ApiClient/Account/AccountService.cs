@@ -1,4 +1,4 @@
-﻿using BTCTrader.Models;
+﻿using BTCTrader.Models.Account;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

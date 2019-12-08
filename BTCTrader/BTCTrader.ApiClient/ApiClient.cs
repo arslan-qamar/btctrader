@@ -1,12 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Net.Http;
-using System.Configuration;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using Newtonsoft.Json;
+﻿using BTCTrader.Entities;
 using BTCTrader.Models;
-using BTCTrader.Entities;
+using Newtonsoft.Json;
+using System;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BTCTrader.Api
 {

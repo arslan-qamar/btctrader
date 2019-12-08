@@ -1,10 +1,10 @@
-﻿using BTCTrader.Models;
+﻿using BTCTrader.Entities.Order;
+using BTCTrader.Models.Order;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace BTCTrader.Api.Orders
+namespace BTCTrader.Api.Order
 {
     public class OrderService : BaseService
     {
@@ -21,22 +21,22 @@ namespace BTCTrader.Api.Orders
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<OrderModel>>(result.Content);
         }
 
-        public async Task<List<OrderModel>> GetOrdersAsync()
+        public async Task<List<OrderModel>> GetOrdersAsync(string orderState = OrdersState.All)
         {
-            var result = await _apiClient.Get($"{VERSION}orders", "status=all");            
-            var hasBefore = result.Headers.TryGetValues("BM_BEFORE", out IEnumerable<string> befores);
-            var hasAfter = result.Headers.TryGetValues("BM-AFTER", out IEnumerable<string> afters);
-            var queryString = "status=all&limit=5";
-
-            if (hasBefore)
-                queryString += $"&before={befores.First()}";
-
-            if (hasAfter)
-                queryString += $"&after={afters.First()}";
-
-            result = await _apiClient.Get("/v3/orders", queryString);
-
+            var result = await _apiClient.Get($"{VERSION}orders", $"status={orderState}");
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<OrderModel>>(result.Content);
+
+            //var hasBefore = result.Headers.TryGetValues("BM_BEFORE", out IEnumerable<string> befores);
+            //var hasAfter = result.Headers.TryGetValues("BM-AFTER", out IEnumerable<string> afters);
+            //var queryString = $"status=all&limit={limit}";
+
+            //if (hasBefore)
+            //    queryString += $"&before={befores.First()}";
+
+            //if (hasAfter)
+            //    queryString += $"&after={afters.First()}";
+
+            //result = await _apiClient.Get("/v3/orders", queryString);            
         }
 
         public async Task PlaceNewOrder(OrderModel model)

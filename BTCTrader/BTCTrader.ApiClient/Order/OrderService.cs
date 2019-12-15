@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BTCTrader.Api.Order
 {
-    public class OrderService : BaseService
+    public class OrderService : BaseService, IOrderService
     {
         private readonly ApiClient _apiClient;
 

@@ -6,15 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\appsettings.json" Link="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BTCTrader.ApiClient\BTCTrader.Api.csproj" />
     <ProjectReference Include="..\BTCTrader.Configuration\BTCTrader.Configuration.csproj" />
     <ProjectReference Include="..\BTCTrader.Entities\BTCTrader.Entities.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy /y $(ProjectDir)..\appsettings.json $(OutDir)" />
+  </Target>
 
 </Project>

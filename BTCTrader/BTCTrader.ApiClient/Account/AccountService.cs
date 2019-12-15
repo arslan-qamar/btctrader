@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BTCTrader.Api.Account
 {
-    public class AccountService : BaseService
+    public class AccountService : BaseService, IAccountService
     {
         private readonly ApiClient _apiClient;
 
@@ -15,7 +15,7 @@ namespace BTCTrader.Api.Account
 
         public async Task<List<AssetModel>> GetAssetsAsync()
         {
-            var result = await _apiClient.Get($"{VERSION}accounts/me/balances", string.Empty);
+            var result = await _apiClient.Get($"{VERSION}accounts/me/balances", string.Empty);            
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<AssetModel>>(result.Content);
         }
 

@@ -9,16 +9,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Entities", "BTCTr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Models", "BTCTrader.Models\BTCTrader.Models.csproj", "{5703F28C-5F1D-46A3-94D7-123F7C647FA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Tests", "BTCTrader.Tests\BTCTrader.Tests.csproj", "{F088F2A9-8D40-40D3-BDAE-84768A475D54}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Api", "BTCTrader.ApiClient\BTCTrader.Api.csproj", "{277CD676-9E9D-47F8-857C-D1B1CB16197F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Configuration", "BTCTrader.Configuration\BTCTrader.Configuration.csproj", "{7CD3A1CC-CA2D-4467-BD60-6A3A854E533B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Configuration", "BTCTrader.Configuration\BTCTrader.Configuration.csproj", "{7CD3A1CC-CA2D-4467-BD60-6A3A854E533B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D1BE5D-1842-4C2D-8065-BB07C20CD7C9}"
 	ProjectSection(SolutionItems) = preProject
 		appsettings.json = appsettings.json
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.IntegrationTests", "BTCTrader.IntegrationTests\BTCTrader.IntegrationTests.csproj", "{91C8C2FC-E798-4738-95E5-CF351DA43077}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.UnitTests", "BTCTrader.UnitTests\BTCTrader.UnitTests.csproj", "{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ACABEC8A-77B3-42DF-BA18-E10BCB42D571}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +42,6 @@ Global
 		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5703F28C-5F1D-46A3-94D7-123F7C647FA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F088F2A9-8D40-40D3-BDAE-84768A475D54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{277CD676-9E9D-47F8-857C-D1B1CB16197F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,9 +50,21 @@ Global
 		{7CD3A1CC-CA2D-4467-BD60-6A3A854E533B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CD3A1CC-CA2D-4467-BD60-6A3A854E533B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CD3A1CC-CA2D-4467-BD60-6A3A854E533B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C8C2FC-E798-4738-95E5-CF351DA43077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C8C2FC-E798-4738-95E5-CF351DA43077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C8C2FC-E798-4738-95E5-CF351DA43077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C8C2FC-E798-4738-95E5-CF351DA43077}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91C8C2FC-E798-4738-95E5-CF351DA43077} = {ACABEC8A-77B3-42DF-BA18-E10BCB42D571}
+		{CC6A2589-6EAF-44D4-8F99-91A43A5A85AF} = {ACABEC8A-77B3-42DF-BA18-E10BCB42D571}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28584774-0693-466A-8158-C6F10E52A402}

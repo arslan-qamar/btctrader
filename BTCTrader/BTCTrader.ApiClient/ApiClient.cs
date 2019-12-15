@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 
 namespace BTCTrader.Api
 {
-    public class ApiClient
+    public class ApiClient : IApiClient
     {
         private readonly string _baseUrl;
         private readonly string _apiKey;
         private readonly string _privateKey;
+        
 
         public ApiClient(AppSettings appSettings)
-        {            
+        {
             _baseUrl = appSettings.BaseUrl;
             _apiKey = appSettings.ApiKey;
             _privateKey = appSettings.PrivateKey;
+            
         }
 
         public async Task<ResponseModel> Get(string path, string queryString)
@@ -36,6 +38,7 @@ namespace BTCTrader.Api
                     Console.WriteLine("Error: " + response.StatusCode.ToString());
 
                 var content = await response.Content.ReadAsStringAsync();
+
                 return new ResponseModel
                 {
                     Headers = response.Headers,

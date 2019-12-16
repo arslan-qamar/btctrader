@@ -6,10 +6,10 @@ namespace BTCTrader.Api.Order
 {
     public interface IOrderService
     {
-        Task CancelAll();
-        Task CancelOrder(string id);
+        Task<List<OrderModel>> CancelAll();
+        Task<List<OrderModel>> CancelOrder(string id);
         Task<List<OrderModel>> GetOpenOrdersAsync();
         Task<List<OrderModel>> GetOrdersAsync(string orderState = "all");
-        Task PlaceNewOrder(OrderModel model);
+        Task<List<OrderModel>> PlaceNewOrder(OrderModel model);
     }
 }

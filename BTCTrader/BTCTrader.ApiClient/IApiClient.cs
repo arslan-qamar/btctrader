@@ -5,9 +5,9 @@ namespace BTCTrader.Api
 {
     public interface IApiClient
     {
-        Task<string> Delete(string path, string queryString);
+        Task<ResponseModel> Delete(string path, string queryString);
         Task<ResponseModel> Get(string path, string queryString);
-        Task<string> Post(string path, string queryString, object data);
-        Task<string> Put(string path, string queryString, object data);
+        Task<ResponseModel> Post(string path, string queryString, object data);
+        Task<ResponseModel> Put(string path, string queryString, object data);
     }
 }

@@ -30,10 +30,10 @@ namespace BTCTrader.Models.Trade
         [JsonProperty("orderId")]
         public long OrderId { get; set; }
 
-        [JsonProperty("liquidityType")]
+        [JsonProperty("liquidityType",NullValueHandling = NullValueHandling.Ignore)]
         public string LiquidityType { get; set; }
 
-        [JsonProperty("clientOrderId")]
+        [JsonProperty("clientOrderId", NullValueHandling = NullValueHandling.Ignore)]
         public long ClientOrderId { get; set; }
 
     }

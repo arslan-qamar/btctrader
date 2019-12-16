@@ -2,18 +2,18 @@
 using BTCTrader.Api.Account;
 using BTCTrader.Configuration;
 using BTCTrader.Entities;
+using BTCTrader.IntegrationTests.Base;
+using BTCTrader.Models.Account;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using Xunit;
 
 namespace BTCTrader.IntegrationTests.Account
 {
-    public class AccountServiceTests : IClassFixture<AccountServiceFixture>
+    public class AccountServiceTests : ServiceTestsBase
     {
-        AccountServiceFixture _fixture;
-        public AccountServiceTests(AccountServiceFixture fixture)
+        public AccountServiceTests(APIFixture fixture) : base(fixture)
         {
-            _fixture = fixture;
         }
 
         [Fact]
@@ -21,13 +21,9 @@ namespace BTCTrader.IntegrationTests.Account
         {            
             var result = await _fixture.AccountService.GetAssetsAsync();
             Assert.NotNull(result);
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+
         }
 
-        [Fact]
-        public async void GetAssets2()
-        {
-            var result = await _fixture.AccountService.GetAssetsAsync();
-            Assert.NotNull(result);
-        }
     }
 }

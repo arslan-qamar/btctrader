@@ -32,22 +32,25 @@ namespace BTCTrader.Api
                 GenerateHeaders(client, "GET", null, path);
 
                 var fullPath = !string.IsNullOrEmpty(queryString) ? path + "?" + queryString : path;
-
+                
                 var response = await client.GetAsync(fullPath);
-                if (!response.IsSuccessStatusCode)
-                    Console.WriteLine("Error: " + response.StatusCode.ToString());
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                return new ResponseModel
-                {
-                    Headers = response.Headers,
-                    Content = await response.Content.ReadAsStringAsync()
-                };
+                return await GetReponse(response);
             }
         }
 
-        public async Task<string> Post(string path, string queryString, object data)
+        private async Task<ResponseModel> GetReponse(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+                Console.WriteLine("Error: " + response.StatusCode.ToString());
+
+            return new ResponseModel
+            {
+                Headers = response.Headers,
+                Content = await response.Content.ReadAsStringAsync()
+            };
+        }
+
+        public async Task<ResponseModel> Post(string path, string queryString, object data)
         {
             using (var client = new HttpClient())
             {
@@ -59,14 +62,11 @@ namespace BTCTrader.Api
                 var content = new StringContent(stringifiedData, Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(fullPath, content);
-                if (!response.IsSuccessStatusCode)
-                    Console.WriteLine("Error: " + response.StatusCode.ToString());
-
-                return await response.Content.ReadAsStringAsync();
+                return await GetReponse(response);
             }
         }
 
-        public async Task<string> Put(string path, string queryString, object data)
+        public async Task<ResponseModel> Put(string path, string queryString, object data)
         {
             using (var client = new HttpClient())
             {
@@ -78,14 +78,11 @@ namespace BTCTrader.Api
                 var content = new StringContent(stringifiedData, Encoding.UTF8, "application/json");
 
                 var response = await client.PutAsync(fullPath, content);
-                if (!response.IsSuccessStatusCode)
-                    Console.WriteLine("Error: " + response.StatusCode.ToString());
-
-                return await response.Content.ReadAsStringAsync();
+                return await GetReponse(response);
             }
         }
 
-        public async Task<string> Delete(string path, string queryString)
+        public async Task<ResponseModel> Delete(string path, string queryString)
         {
             using (var client = new HttpClient())
             {
@@ -95,10 +92,7 @@ namespace BTCTrader.Api
                 var fullPath = !string.IsNullOrEmpty(queryString) ? path + "?" + queryString : path;
 
                 var response = await client.DeleteAsync(fullPath);
-                if (!response.IsSuccessStatusCode)
-                    Console.WriteLine("Error: " + response.StatusCode.ToString());
-
-                return await response.Content.ReadAsStringAsync();
+                return await GetReponse(response);
             }
         }
 

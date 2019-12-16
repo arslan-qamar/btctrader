@@ -5,6 +5,8 @@
 
 #App Settings containing Key for BTC
 appsettings.json
+launch.json
+tasks.json
 
 # User-specific files
 *.suo

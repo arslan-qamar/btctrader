@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /y $(ProjectDir)..\appsettings.json $(OutDir)" />
+    <Exec Command="pwsh -c Copy-Item $(ProjectDir)..\appsettings.json $(ProjectDir)\$(OutDir)" />
   </Target>
 
 </Project>

@@ -32,7 +32,7 @@ namespace BTCTrader
             var marketService = new MarketService(new ApiClient(appSettings));
 
 
-            List<OrderModel> orders = await orderService.GetOrdersAsync(OrdersState.All);
+            List<OrderModel> orders = await orderService.GetOrdersAsync(OrderState.All);
 
             List<TradeModel> trades = await tradeService.GetTradesAsync();
 

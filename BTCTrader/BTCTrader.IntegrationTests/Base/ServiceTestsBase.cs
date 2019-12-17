@@ -4,13 +4,13 @@ using Xunit;
 
 namespace BTCTrader.IntegrationTests.Base
 {
-    public class ServiceTestsBase : IClassFixture<ServiceTestsFixture>
+    public class ServiceTestsBase : IClassFixture<ServiceTestsSystem>
     {
-        protected ServiceTestsFixture _fixture;
+        protected ServiceTestsSystem System;
 
-        public ServiceTestsBase(ServiceTestsFixture fixture)
+        public ServiceTestsBase(ServiceTestsSystem system)
         {
-            _fixture = fixture;
+            System = system;
         }
 
         protected bool AllPropertiesAreInitialized(object model, List<string> optionalFields = null)

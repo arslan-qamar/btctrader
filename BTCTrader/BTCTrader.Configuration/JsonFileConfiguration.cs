@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BTCTrader.Configuration
 {
-    public class JsonFileConfiguration : ConfigurationBuilder
+    public class JsonFileConfiguration : ConfigurationBuilder, IAppSettingsConfiguration
     {
         AppSettings _appSettings = null;
         public JsonFileConfiguration(string appSettingsFilePath = BTCTrader.Constants.Configuration.FILE_CONFIGURATION)

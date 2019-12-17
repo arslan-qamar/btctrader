@@ -6,14 +6,14 @@ namespace BTCTrader.IntegrationTests.Market
 {
     public class MarketServiceTests : ServiceTestsBase
     {
-        public MarketServiceTests(ServiceTestsFixture fixture) : base(fixture)
+        public MarketServiceTests(ServiceTestsSystem system) : base(system)
         {
         }
 
         [Fact]
         public async void GetMarketsAsync()
         {
-            var result = await _fixture.MarketService.GetMarketsAsync();
+            var result = await System.MarketService.GetMarketsAsync();
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
             
@@ -22,7 +22,7 @@ namespace BTCTrader.IntegrationTests.Market
         [Fact]
         public async void GetMarketTickersAsync()
         {
-            var result = await _fixture.MarketService.GetMarketTickersAsync(await _fixture.MarketService.GetMarketsAsync());
+            var result = await System.MarketService.GetMarketTickersAsync(await System.MarketService.GetMarketsAsync());
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
         }

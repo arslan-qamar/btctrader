@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ACABEC8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Constants", "BTCTrader.Constants\BTCTrader.Constants.csproj", "{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Trading", "BTCTrader.Trading\BTCTrader.Trading.csproj", "{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

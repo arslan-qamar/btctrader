@@ -8,7 +8,7 @@ namespace BTCTrader.IntegrationTests.Trade
     public class TradeServiceTests : ServiceTestsBase
     {
         List<String> optionalFields = new List<String>() { "LiquidityType" };
-        public TradeServiceTests(ServiceTestsFixture fixture) : base(fixture)
+        public TradeServiceTests(ServiceTestsSystem system) : base(system)
         {
         }
 
@@ -16,7 +16,7 @@ namespace BTCTrader.IntegrationTests.Trade
         [Fact]
         public async void GetTradesAsync()
         {
-            var result = await _fixture.TradeService.GetTradesAsync();
+            var result = await System.TradeService.GetTradesAsync();
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m,optionalFields)));
         }

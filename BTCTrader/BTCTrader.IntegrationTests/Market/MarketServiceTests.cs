@@ -6,7 +6,7 @@ namespace BTCTrader.IntegrationTests.Market
 {
     public class MarketServiceTests : ServiceTestsBase
     {
-        public MarketServiceTests(APIFixture fixture) : base(fixture)
+        public MarketServiceTests(ServiceTestsFixture fixture) : base(fixture)
         {
         }
 

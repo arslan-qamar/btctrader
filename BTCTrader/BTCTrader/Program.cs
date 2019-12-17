@@ -10,9 +10,7 @@ using BTCTrader.Models.Account;
 using BTCTrader.Models.Market;
 using BTCTrader.Models.Order;
 using BTCTrader.Models.Trade;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Net.Http;
 
 namespace BTCTrader
 {
@@ -21,8 +19,8 @@ namespace BTCTrader
         static async System.Threading.Tasks.Task Main(string[] args)
         {
             AppSettings appSettings;
-            ConfigurationHelper configurationHelper = new ConfigurationHelper(new ConfigurationBuilder().AddJsonFile("appsettings.json"));
-            appSettings = configurationHelper.GetAppSettings();
+            JsonFileConfiguration configuration = new JsonFileConfiguration(Constants.Configuration.FILE_CONFIGURATION);
+            appSettings = configuration.GetAppSettings();
 
           
 

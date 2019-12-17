@@ -12,7 +12,7 @@ namespace BTCTrader.IntegrationTests.Account
 {
     public class AccountServiceTests : ServiceTestsBase
     {
-        public AccountServiceTests(APIFixture fixture) : base(fixture)
+        public AccountServiceTests(ServiceTestsFixture fixture) : base(fixture)
         {
         }
 

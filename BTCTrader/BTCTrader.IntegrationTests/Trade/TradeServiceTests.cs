@@ -8,7 +8,7 @@ namespace BTCTrader.IntegrationTests.Trade
     public class TradeServiceTests : ServiceTestsBase
     {
         List<String> optionalFields = new List<String>() { "LiquidityType" };
-        public TradeServiceTests(APIFixture fixture) : base(fixture)
+        public TradeServiceTests(ServiceTestsFixture fixture) : base(fixture)
         {
         }
 

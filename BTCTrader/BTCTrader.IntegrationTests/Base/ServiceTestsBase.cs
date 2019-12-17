@@ -4,11 +4,11 @@ using Xunit;
 
 namespace BTCTrader.IntegrationTests.Base
 {
-    public class ServiceTestsBase : IClassFixture<APIFixture>
+    public class ServiceTestsBase : IClassFixture<ServiceTestsFixture>
     {
-        protected APIFixture _fixture;
+        protected ServiceTestsFixture _fixture;
 
-        public ServiceTestsBase(APIFixture fixture)
+        public ServiceTestsBase(ServiceTestsFixture fixture)
         {
             _fixture = fixture;
         }

@@ -10,7 +10,7 @@ using System.Net.Http;
 
 namespace BTCTrader.IntegrationTests
 {
-    public class APIFixture
+    public class ServiceTestsFixture
     {
         public IAccountService AccountService;
         public IMarketService MarketService;
@@ -18,11 +18,11 @@ namespace BTCTrader.IntegrationTests
         public ITradeService TradeService;
 
         public ApiClient ApiClient;
-        public APIFixture()
+        public ServiceTestsFixture()
         {
             AppSettings appSettings;
-            ConfigurationHelper configurationHelper = new ConfigurationHelper(new ConfigurationBuilder().AddJsonFile("appsettings.json"));
-            appSettings = configurationHelper.GetAppSettings();         
+            JsonFileConfiguration configuration = new JsonFileConfiguration(Constants.Configuration.FILE_CONFIGURATION);
+            appSettings = configuration.GetAppSettings();         
             ApiClient = new ApiClient(appSettings);
 
             AccountService = new AccountService(ApiClient);

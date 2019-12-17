@@ -9,7 +9,7 @@ namespace BTCTrader.IntegrationTests.Order
     public class OrderServiceTests : ServiceTestsBase
     {
         List<String> optionalFields = new List<String>() { "ClientOrderId", "TriggerPrice", "TargetAmount", "TimeInForce", "PostOnly", "SelfTrade" };
-        public OrderServiceTests(APIFixture fixture) : base(fixture)
+        public OrderServiceTests(ServiceTestsFixture fixture) : base(fixture)
         {
         }
 

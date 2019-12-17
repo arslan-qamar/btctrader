@@ -7,6 +7,7 @@
 appsettings.json
 launch.json
 tasks.json
+*.code-workspace
 
 # User-specific files
 *.suo

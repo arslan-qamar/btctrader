@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BTCTrader.IntegrationTests.Base
@@ -12,16 +13,18 @@ namespace BTCTrader.IntegrationTests.Base
             _fixture = fixture;
         }
 
-        protected bool AllPropertiesAreInitialized(object model)
+        protected bool AllPropertiesAreInitialized(object model, List<string> optionalFields = null)
         {
-            bool result = false;
+            optionalFields =  optionalFields == null ? new List<string>() : optionalFields;
+            
+            var props = model.GetType().GetProperties();
 
-            result = model.GetType().GetProperties()
-            .Where(pi => pi.PropertyType == typeof(string))
-            .Select(pi => (string)pi.GetValue(model))
-            .Any(value => !string.IsNullOrEmpty(value));
-
-            return result;
+            foreach(var prop in props)
+            {
+                string val = Convert.ToString(prop.GetValue(model));
+                Assert.True(optionalFields.Contains(prop.Name) || !string.IsNullOrEmpty(val), $"Model : {model.GetType().Name} Property {prop.Name} has value: {val} . It should not be null or empty.");
+            }
+            return true;
         }
     }
 }

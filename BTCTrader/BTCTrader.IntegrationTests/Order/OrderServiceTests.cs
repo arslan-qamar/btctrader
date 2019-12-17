@@ -1,12 +1,14 @@
 ﻿using BTCTrader.Entities.Order;
 using BTCTrader.IntegrationTests.Base;
-using BTCTrader.Models.Order;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BTCTrader.IntegrationTests.Order
 {
     public class OrderServiceTests : ServiceTestsBase
     {
+        List<String> optionalFields = new List<String>() { "ClientOrderId", "TriggerPrice", "TargetAmount", "TimeInForce", "PostOnly", "SelfTrade" };
         public OrderServiceTests(APIFixture fixture) : base(fixture)
         {
         }
@@ -33,7 +35,7 @@ namespace BTCTrader.IntegrationTests.Order
         {
             var result = await _fixture.OrderService.GetOrdersAsync(orderState:OrderState.All);
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m,optionalFields)));
         }
 
         //[Fact]

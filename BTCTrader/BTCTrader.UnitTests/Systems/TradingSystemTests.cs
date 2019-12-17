@@ -8,20 +8,7 @@ using Xunit;
 namespace BTCTrader.UnitTests.Systems
 {
     public class TradingSystemTests : UnitTestsBaseClass
-    {
-        [Fact]
-        public void InitializeServicesTest()
-        {
-            TradingSystem tradingSystem = new TradingSystem();
-            AppSettings appSettings = FakeAppSettings();
-
-            ApiClient apiClient = new ApiClient(appSettings);
-            tradingSystem.InitializeServices(apiClient);
-
-            AllTradeServicesAreInitialized(tradingSystem);
-        }
-
-        
+    {       
 
         [Fact]
         public void IAppSettingsConfigurationConstructorTest()
@@ -30,9 +17,7 @@ namespace BTCTrader.UnitTests.Systems
             AppSettings appSettings = FakeAppSettings();
             mockAppSettingsConfiguration.Setup(m => m.GetAppSettings()).Returns(appSettings);
 
-            TradingSystem tradingSystem = new TradingSystem(mockAppSettingsConfiguration.Object);
-            ApiClient apiClient = new ApiClient(appSettings);
-            tradingSystem.InitializeServices(apiClient);
+            TradingSystem tradingSystem = new TradingSystem(mockAppSettingsConfiguration.Object);           
 
             AllTradeServicesAreInitialized(tradingSystem);
         }

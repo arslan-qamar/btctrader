@@ -21,7 +21,7 @@ namespace BTCTrader.Trading.Systems
 
         }
 
-        public void InitializeServices(ApiClient apiClient)
+        protected void InitializeServices(ApiClient apiClient)
         {
             ApiClient = apiClient;
             AccountService = new AccountService(apiClient);

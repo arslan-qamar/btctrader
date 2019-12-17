@@ -9,6 +9,7 @@
     <ProjectReference Include="..\BTCTrader.ApiClient\BTCTrader.Api.csproj" />
     <ProjectReference Include="..\BTCTrader.Configuration\BTCTrader.Configuration.csproj" />
     <ProjectReference Include="..\BTCTrader.Entities\BTCTrader.Entities.csproj" />
+    <ProjectReference Include="..\BTCTrader.Trading\BTCTrader.Trading.csproj" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

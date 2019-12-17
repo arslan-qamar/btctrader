@@ -5,11 +5,11 @@ namespace BTCTrader.Configuration
 {
     public class JsonFileConfiguration : ConfigurationBuilder, IAppSettingsConfiguration
     {
-        AppSettings _appSettings = null;
+        private AppSettings _appSettings = null;
         public JsonFileConfiguration(string appSettingsFilePath = BTCTrader.Constants.Configuration.FILE_CONFIGURATION)
         {
             this.AddJsonFile(appSettingsFilePath);
-            _appSettings = Build().GetSection("AppSettings").Get<AppSettings>();
+            _appSettings = Build().GetSection(Constants.Configuration.FILE_APPSETTINGS_SECTIONNAME).Get<AppSettings>();
         }
 
         public AppSettings GetAppSettings()

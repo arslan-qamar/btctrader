@@ -10,38 +10,71 @@ using BTCTrader.Models.Account;
 using BTCTrader.Models.Market;
 using BTCTrader.Models.Order;
 using BTCTrader.Models.Trade;
+using BTCTrader.Trading.Systems;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BTCTrader
 {
     class Program
     {
-        static async System.Threading.Tasks.Task Main(string[] args)
+        IAppSettingsConfiguration appSettingsConfiguration;
+        TradingSystem tradingSystem;
+        private Dictionary<string, string> cmdArgs;
+
+        public Program(string[] args)
         {
-            AppSettings appSettings;
-            JsonFileConfiguration configuration = new JsonFileConfiguration(Constants.Configuration.FILE_CONFIGURATION);
-            appSettings = configuration.GetAppSettings();
+            this.cmdArgs = args.Select(s => new Regex(@"/(?<name>.+?):(?<val>.+)").Match(s)).Where(m => m.Success).ToDictionary(m => m.Groups[1].Value, m => m.Groups[2].Value);
 
-          
+            appSettingsConfiguration = LoadIAppSettingsConfiguration(this.cmdArgs);
+        }
 
-            var orderService = new OrderService(new ApiClient(appSettings));
-            var accountService  = new AccountService(new ApiClient(appSettings));
-            var tradeService = new TradeService(new ApiClient(appSettings));
-            var marketService = new MarketService(new ApiClient(appSettings));
+        private IAppSettingsConfiguration LoadIAppSettingsConfiguration(Dictionary<string, string> cmdArgs)
+        {
+            if(cmdArgs.ContainsKey(Constants.Configuration.CONFIG_FILE))
+            {
 
+            }
+            return null;
+        }
 
-            List<OrderModel> orders = await orderService.GetOrdersAsync(OrderState.All);
+        public static void Main(string[] args)
+        {
 
-            List<TradeModel> trades = await tradeService.GetTradesAsync();
+            Program p = new Program(args);
+            p.LoadTradingSystem();
+            p.RunMakeMeRich();
 
-            List<AssetModel> assets = await accountService.GetAssetsAsync();
+            //appSettingsConfiguration = new JsonFileConfiguration(Constants.Configuration.FILE_CONFIGURATION);
+            //tradingSystem = new TradingSystem(appSettingsConfiguration);          
+            
+            //List<OrderModel> orders = await orderService.GetOrdersAsync(OrderState.All);
 
-            List<MarketModel> markets = await marketService.GetMarketsAsync();
+            //List<TradeModel> trades = await tradeService.GetTradesAsync();
 
-            List<MarketTickerModel> marketTickers = await marketService.GetMarketTickersAsync(markets);
+            //List<AssetModel> assets = await accountService.GetAssetsAsync();
 
+            //List<MarketModel> markets = await marketService.GetMarketsAsync();
 
+            //List<MarketTickerModel> marketTickers = await marketService.GetMarketTickersAsync(markets);
 
         }
+
+        private void LoadTradingSystem()
+        {
+            
+            appSettingsConfiguration = new JsonFileConfiguration(Constants.Configuration.FILE_CONFIGURATION);
+            tradingSystem = new TradingSystem(appSettingsConfiguration);
+        }
+
+
+        private void RunMakeMeRich()
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

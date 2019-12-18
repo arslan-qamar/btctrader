@@ -4,7 +4,7 @@ using BTCTrader.Api.Market;
 using BTCTrader.Api.Order;
 using BTCTrader.Api.Trade;
 using BTCTrader.Configuration;
-using BTCTrader.Entities;
+using Serilog.Core;
 
 namespace BTCTrader.Trading.Systems
 {
@@ -14,9 +14,10 @@ namespace BTCTrader.Trading.Systems
         public IMarketService MarketService;
         public IOrderService OrderService;
         public ITradeService TradeService;
+        public Logger Logger;
         protected internal ApiClient ApiClient;
 
-        public TradingSystem()
+        protected TradingSystem()
         {
 
         }
@@ -30,15 +31,13 @@ namespace BTCTrader.Trading.Systems
             TradeService = new TradeService(apiClient);
         }
         
-        public TradingSystem(IAppSettingsConfiguration appSettingsConfiguration)
+        public TradingSystem(ITradingSystemConfiguration tradingSystemConfiguration)
         {
-            AppSettings appSettings;
-
-            appSettings = appSettingsConfiguration.GetAppSettings();
-            ApiClient = new ApiClient(appSettings);
-
+            ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings());
             InitializeServices(ApiClient);
 
+            Logger = tradingSystemConfiguration.GetLoggerConfiguration().CreateLogger();
+            
         }
     }
 }

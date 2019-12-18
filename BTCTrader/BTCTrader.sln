@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Configuration", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D1BE5D-1842-4C2D-8065-BB07C20CD7C9}"
 	ProjectSection(SolutionItems) = preProject
+		appsettings-arslan.json = appsettings-arslan.json
 		appsettings.json = appsettings.json
 	EndProjectSection
 EndProject
@@ -24,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.UnitTests", "BTCT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ACABEC8A-77B3-42DF-BA18-E10BCB42D571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Constants", "BTCTrader.Constants\BTCTrader.Constants.csproj", "{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Constants", "BTCTrader.Constants\BTCTrader.Constants.csproj", "{48FD7C92-4941-4EE2-9F27-977D2C9A6F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTCTrader.Trading", "BTCTrader.Trading\BTCTrader.Trading.csproj", "{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Trading", "BTCTrader.Trading\BTCTrader.Trading.csproj", "{58E18FFF-0645-4D4B-A221-5BC1FB3D8A21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,19 +2,18 @@
 using BTCTrader.Configuration;
 using BTCTrader.Entities;
 using BTCTrader.Trading.Systems;
+using Serilog;
 
 namespace BTCTrader.IntegrationTests
 {
     public class ServiceTestsSystem : TradingSystem
     {
         public ServiceTestsSystem()
-        {
-            AppSettings appSettings;
-            appSettings = new JsonFileConfiguration(BTCTrader.Constants.Configuration.FILE_CONFIGURATION).GetAppSettings();
+        {            
+            var jsonFileConfiguration = new JsonFileConfiguration(BTCTrader.Constants.Configuration.FILE_CONFIGURATION);
+            AppSettings appSettings = jsonFileConfiguration.GetAppSettings();            
             ApiClient = new ApiClient(appSettings);
-
-            base.InitializeServices(ApiClient);
-            
+            base.InitializeServices(ApiClient, jsonFileConfiguration.GetLoggerConfiguration().CreateLogger());
         }
     }
 }

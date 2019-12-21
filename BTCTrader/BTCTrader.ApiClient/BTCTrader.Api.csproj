@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BTCTrader.Entities\BTCTrader.Entities.csproj" />
     <ProjectReference Include="..\BTCTrader.Models\BTCTrader.Models.csproj" />
   </ItemGroup>

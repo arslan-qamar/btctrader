@@ -1,4 +1,5 @@
 ﻿using BTCTrader.Models.Account;
+using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,8 @@ namespace BTCTrader.Api.Account
 {
     public class AccountService : BaseService, IAccountService
     {
-        private readonly ApiClient _apiClient;
-
-        public AccountService(ApiClient apiClient)
+        public AccountService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
-            _apiClient = apiClient;
         }
 
         public async Task<List<AssetModel>> GetAssetsAsync()

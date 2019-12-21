@@ -1,5 +1,6 @@
 ﻿using BTCTrader.Entities.Order;
 using BTCTrader.Models.Order;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,11 +9,8 @@ namespace BTCTrader.Api.Order
 {
     public class OrderService : BaseService, IOrderService
     {
-        private readonly ApiClient _apiClient;
-
-        public OrderService(ApiClient apiClient)
+        public OrderService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
-            _apiClient = apiClient;
         }
 
         public async Task<List<OrderModel>> GetOpenOrdersAsync()

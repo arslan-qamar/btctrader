@@ -1,5 +1,5 @@
 ﻿using BTCTrader.IntegrationTests.Base;
-using BTCTrader.Models.Market;
+using System;
 using Xunit;
 
 namespace BTCTrader.IntegrationTests.Market
@@ -41,18 +41,18 @@ namespace BTCTrader.IntegrationTests.Market
         public async void GetMarketOrderBookAsync()
         {
             var markets = await System.MarketService.GetMarketsAsync();
-            var result = await System.MarketService.GetMarketOrderBookAsync(markets[0]);
+            var result = await System.MarketService.GetMarketOrderBooksAsync(markets);
             Assert.NotNull(result);
-            Assert.True(this.AllPropertiesAreInitialized(result, new System.Collections.Generic.List<string>() {}));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
         }
 
         [Fact]
         public async void GetMarketCandlesAsync()
         {
             var markets = await System.MarketService.GetMarketsAsync();
-            var result = await System.MarketService.GetMarketCandlesAsync(markets[0]);
+            var result = await System.MarketService.GetMarketCandlesAsync(markets[0],DateTimeOffset.Now.AddHours(-4.0), DateTimeOffset.Now);
             Assert.NotNull(result);
-            Assert.True(this.AllPropertiesAreInitialized(result, new System.Collections.Generic.List<string>() { }));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
         }
 
     }

@@ -33,7 +33,7 @@ namespace BTCTrader.Api.Market
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<MarketTickerModel>>(results.Content);
         }
 
-        public async Task<List<TradeModel>> GetMarketTradesAsync(MarketModel market, int? before, int? after, int limit)
+        public async Task<List<TradeModel>> GetMarketTradesAsync(MarketModel market, Int64? before, Int64? after, int limit)
         {
             if (market == null)
             {
@@ -49,23 +49,36 @@ namespace BTCTrader.Api.Market
             return trades;
         }
 
-        public async Task<MarketOrderBookModel> GetMarketOrderBookAsync(MarketModel market, int level)
+        public async Task<List<MarketOrderBookModel>> GetMarketOrderBooksAsync(List<MarketModel> markets, int level)
         {
-            if (market == null)
+            if (markets?.Count == 0)
             {
-                var exception = new ArgumentException(nameof(GetMarketOrderBookAsync) + " requires atleast one market to fetch market order book information", nameof(market));
-                _logger.Error(exception, "{MethodName} requires atleast one market to fetch market order book information", nameof(GetMarketOrderBookAsync));
+                var exception = new ArgumentException(nameof(GetMarketOrderBooksAsync) + " requires atleast one market to fetch market order book information", nameof(markets));
+                _logger.Error(exception, "{MethodName} requires atleast one market to fetch market order book information", nameof(GetMarketOrderBooksAsync));
                 throw exception;
             }
 
-            var results = await _apiClient.Get($"{VERSION}markets/{market.MarketId}/orderbook", $"level={level}");
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<MarketOrderBookModel>(results.Content, new AskOrBidConverter());            
+            var queryString = String.Join("&", markets.Select(m => "marketId=" +m.MarketId));
+            var results = await _apiClient.Get($"{VERSION}markets/orderbooks", $"{queryString}&level={level}");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<MarketOrderBookModel>>(results.Content, new OrderBookEntryConverter());
         }
 
-        public async Task<MarketOrderBookModel> GetMarketCandlesAsync(MarketModel market, string timeWindow, string from, string to, int? before, int? after, int limit)
+        public async Task<List<MarketCandleModel>> GetMarketCandlesAsync(MarketModel market, DateTimeOffset from, DateTimeOffset to, string timeWindow, Int64? before, Int64? after, int limit)
         {
-            throw new NotImplementedException();
+            if (market == null)
+            {
+                var exception = new ArgumentException(nameof(GetMarketCandlesAsync) + " requires atleast one market to fetch market candles information", nameof(market));
+                _logger.Error(exception, "{MethodName} requires atleast one market to fetch market candles information", nameof(GetMarketCandlesAsync));
+                throw exception;
+            }
+
+            var results = await _apiClient.Get($"{VERSION}markets/{market.MarketId}/candles", $"from={from.UtcDateTime.ToString("o")}&to={to.UtcDateTime.ToString("o")}&timeWindow={timeWindow}&before={before}&after={after}&limit={limit}");
+
+            var marketCandles = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MarketCandleModel>>(results.Content, new MarketCandleJsonConverter());
+            marketCandles.OrderByDescending(c => c.Timestamp);
+            return marketCandles;
         }
+
     }
 }
+    

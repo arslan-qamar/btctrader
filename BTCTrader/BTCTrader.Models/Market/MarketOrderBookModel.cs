@@ -12,10 +12,10 @@ namespace BTCTrader.Models.Market
         public long SnapshotId { get; set; }
 
         [JsonProperty("asks")]
-        public List<AskOrBid> Asks { get; set; }
+        public List<OrderBookEntry> Asks { get; set; }
 
         [JsonProperty("bids")]
-        protected List<AskOrBid> Bids { get; set; }
+        protected List<OrderBookEntry> Bids { get; set; }
        
     }
  

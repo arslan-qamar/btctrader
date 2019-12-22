@@ -1,5 +1,6 @@
 ﻿using BTCTrader.Entities.Order;
 using BTCTrader.IntegrationTests.Base;
+using BTCTrader.Models.Order;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -15,9 +16,10 @@ namespace BTCTrader.IntegrationTests.Order
 
 
         [Fact]
-        public async void CancelAll()
+        public async void CancelAllAsync()
         {
-            var result = await System.OrderService.CancelAll();
+            var markets = await System.MarketService.GetMarketsAsync();
+            var result = await System.OrderService.CancelAllAsync(markets);
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
         }
@@ -33,36 +35,41 @@ namespace BTCTrader.IntegrationTests.Order
         [Fact]
         public async void GetOrdersAsync()
         {
-            var result = await System.OrderService.GetOrdersAsync(orderState:OrderState.All);
+            var result = await System.OrderService.GetOrdersAsync();
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m,optionalFields)));
         }
 
-        //[Fact]
-        //public async void CancelOrder()
-        //{
-        //    var result = await _fixture.OrderService.CancelAll();
-        //    Assert.NotNull(result);
+        [Fact]
+        public async void PlaceNewOrderThenGetAndCancelAsync()
+        {
+            OrderModel newOrder = new OrderModel();
+            newOrder.MarketId = "BTC-AUD";
+            newOrder.Type = OrderType.Limit;
+            newOrder.Price = "0.01";
+            newOrder.Amount = "0.0001";
+            newOrder.Side = OrderSide.Bid;
+            
+            //Place New Order
+            var acceptedOrder = await System.OrderService.PlaceNewOrderAsync(newOrder);            
+            Assert.NotNull(acceptedOrder);
+            Assert.Equal(acceptedOrder.Status, OrderStatus.Accepted);
+            Assert.True(this.AllPropertiesAreInitialized(acceptedOrder, optionalFields));
 
-        //    if (result.Count > 0)
-        //    {
-        //        OrderModel m = result[0];
-        //        Assert.True(this.AllPropertiesAreInitialized(m));
-        //    }
-        //}
+            //Get Order
+            var placedOrder = await System.OrderService.GetOrderAsync(acceptedOrder.OrderId);
+            Assert.NotNull(placedOrder);
+            Assert.Equal(placedOrder.Status, OrderStatus.Placed);
+            Assert.Equal(placedOrder.OrderId, acceptedOrder.OrderId);
+            Assert.True(this.AllPropertiesAreInitialized(placedOrder, optionalFields));
 
-        //[Fact]
-        //public async void PlaceNewOrder()
-        //{
-        //    var result = await _fixture.OrderService.CancelAll();
-        //    Assert.NotNull(result);
+            //Delete Order
+            var deletedOrder = await System.OrderService.CancelOrderAsync(placedOrder.OrderId);
+            deletedOrder = await System.OrderService.GetOrderAsync(placedOrder.OrderId);
+            Assert.NotNull(deletedOrder);
+            Assert.Equal(deletedOrder.Status, OrderStatus.Cancelled);
 
-        //    if (result.Count > 0)
-        //    {
-        //        OrderModel m = result[0];
-        //        Assert.True(this.AllPropertiesAreInitialized(m));
-        //    }
-        //}        
+        }
 
     }
 }

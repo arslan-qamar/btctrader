@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BTCTrader.Entities.Order
+﻿namespace BTCTrader.Entities.Order
 {
     public class OrderType
     {

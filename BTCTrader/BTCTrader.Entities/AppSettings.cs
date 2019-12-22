@@ -12,6 +12,6 @@ namespace BTCTrader.Entities
 
         [JsonProperty("privateKey")]
         public string PrivateKey { get; set; }
-      
+
     }
 }

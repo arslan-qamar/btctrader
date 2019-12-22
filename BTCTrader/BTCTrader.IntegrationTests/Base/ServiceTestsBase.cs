@@ -15,11 +15,11 @@ namespace BTCTrader.IntegrationTests.Base
 
         protected bool AllPropertiesAreInitialized(object model, List<string> optionalFields = null)
         {
-            optionalFields =  optionalFields == null ? new List<string>() : optionalFields;
-            
+            optionalFields = optionalFields == null ? new List<string>() : optionalFields;
+
             var props = model.GetType().GetProperties();
 
-            foreach(var prop in props)
+            foreach (var prop in props)
             {
                 string val = Convert.ToString(prop.GetValue(model));
                 Assert.True(optionalFields.Contains(prop.Name) || !string.IsNullOrEmpty(val), $"Model : {model.GetType().Name} Property {prop.Name} has value: {val} . It should not be null or empty.");

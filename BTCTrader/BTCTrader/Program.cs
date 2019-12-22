@@ -29,7 +29,7 @@ namespace BTCTrader
 
         private ITradingSystemConfiguration LoadITradingSystemConfiguration(Dictionary<string, string> cmdArgs)
         {
-            if(cmdArgs.ContainsKey(Constants.Configuration.CONFIG_FILE))
+            if (cmdArgs.ContainsKey(Constants.Configuration.CONFIG_FILE))
             {
                 return new JsonFileConfiguration(cmdArgs[Constants.Configuration.CONFIG_FILE]);
             }
@@ -47,16 +47,16 @@ namespace BTCTrader
 
 
 
-        }   
+        }
 
 
         private void RunMakeMeRich()
         {
 
-            var x  = tradingSystem.AccountService.GetTransactionsAsync().Result;
-            
+            var x = tradingSystem.AccountService.GetTransactionsAsync().Result;
+
         }
 
-       
+
     }
 }

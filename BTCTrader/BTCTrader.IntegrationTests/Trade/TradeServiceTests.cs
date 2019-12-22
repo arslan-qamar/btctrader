@@ -18,7 +18,7 @@ namespace BTCTrader.IntegrationTests.Trade
         {
             var result = await System.TradeService.GetTradesAsync();
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m,optionalFields)));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m, optionalFields)));
         }
     }
 }

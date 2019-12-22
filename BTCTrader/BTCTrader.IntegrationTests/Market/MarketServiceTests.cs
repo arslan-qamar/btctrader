@@ -16,7 +16,7 @@ namespace BTCTrader.IntegrationTests.Market
             var result = await System.MarketService.GetMarketsAsync();
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
-            
+
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace BTCTrader.IntegrationTests.Market
 
         [Fact]
         public async void GetMarketTradesAsync()
-        {   
+        {
             var markets = await System.MarketService.GetMarketsAsync();
             var result = await System.MarketService.GetMarketTradesAsync(markets[0]);
             Assert.NotNull(result);
@@ -50,7 +50,7 @@ namespace BTCTrader.IntegrationTests.Market
         public async void GetMarketCandlesAsync()
         {
             var markets = await System.MarketService.GetMarketsAsync();
-            var result = await System.MarketService.GetMarketCandlesAsync(markets[0],DateTimeOffset.Now.AddHours(-4.0), DateTimeOffset.Now);
+            var result = await System.MarketService.GetMarketCandlesAsync(markets[0], DateTimeOffset.Now.AddHours(-4.0), DateTimeOffset.Now);
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
         }

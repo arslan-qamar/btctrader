@@ -23,7 +23,7 @@ namespace BTCTrader.Api
             _apiKey = appSettings.ApiKey;
             _privateKey = appSettings.PrivateKey;
             _logger = logger;
-            
+
         }
 
         public async Task<ResponseModel> Get(string path, string queryString)
@@ -34,7 +34,7 @@ namespace BTCTrader.Api
                 GenerateHeaders(client, "GET", null, path);
 
                 var fullPath = !string.IsNullOrEmpty(queryString) ? path + "?" + queryString : path;
-                
+
                 var response = await client.GetAsync(fullPath);
                 return await GetReponse(response);
             }
@@ -45,7 +45,7 @@ namespace BTCTrader.Api
             if (!response.IsSuccessStatusCode)
             {
                 var responseDetails = await response.Content.ReadAsStringAsync();
-                var exception = new HttpRequestException($"{response.RequestMessage} Failed with Status Code : {response.StatusCode} and Response Message : {responseDetails}");                                
+                var exception = new HttpRequestException($"{response.RequestMessage} Failed with Status Code : {response.StatusCode} and Response Message : {responseDetails}");
                 _logger.ForContext<ApiClient>().Error(exception, "");
                 throw exception;
             }

@@ -5,8 +5,8 @@ namespace BTCTrader.Models.Trade
 {
     public class TradeModel
     {
-       
-        [JsonProperty("id")]        
+
+        [JsonProperty("id")]
         public string Id { get; set; }
 
         [JsonProperty("marketId")]

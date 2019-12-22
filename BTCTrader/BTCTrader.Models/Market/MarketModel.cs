@@ -22,7 +22,7 @@ namespace BTCTrader.Models.Market
         [JsonProperty("amountDecimals")]
         public decimal AmountDecimals { get; set; }
 
-        [JsonProperty("priceDecimals")]        
+        [JsonProperty("priceDecimals")]
         public decimal PriceDecimals { get; set; }
     }
 }

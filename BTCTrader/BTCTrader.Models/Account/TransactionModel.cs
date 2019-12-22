@@ -29,7 +29,7 @@ namespace BTCTrader.Models.Account
         [JsonProperty("recordType")]
         public string RecordType { get; set; }
 
-        [JsonProperty("referenceId")]        
+        [JsonProperty("referenceId")]
         public string ReferenceId { get; set; }
     }
 

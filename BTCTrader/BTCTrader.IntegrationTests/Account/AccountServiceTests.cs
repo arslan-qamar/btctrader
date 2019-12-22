@@ -11,7 +11,7 @@ namespace BTCTrader.IntegrationTests.Account
 
         [Fact]
         public async void GetAssets()
-        {            
+        {
             var result = await System.AccountService.GetAssetsAsync();
             Assert.NotNull(result);
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));

@@ -43,7 +43,7 @@ namespace BTCTrader.Api.Order
         {
             var result = await _apiClient.Delete($"/v3/orders", string.Join("&", markets?.Select(m => "marketId=" + m.MarketId)));
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<OrderModel>>(result.Content);
-        }       
+        }
 
         public async Task<OrderModel> GetOrderAsync(string id)
         {
@@ -51,6 +51,6 @@ namespace BTCTrader.Api.Order
             return Newtonsoft.Json.JsonConvert.DeserializeObject<OrderModel>(result.Content);
         }
 
-        
+
     }
 }

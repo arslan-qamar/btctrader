@@ -31,11 +31,11 @@ namespace BTCTrader.Trading.Systems
             OrderService = new OrderService(apiClient, Logger);
             TradeService = new TradeService(apiClient, Logger);
         }
-        
+
         public TradingSystem(ITradingSystemConfiguration tradingSystemConfiguration)
         {
             Logger = tradingSystemConfiguration.GetLoggerConfiguration().CreateLogger();
-            ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings(),Logger);            
+            ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings(), Logger);
             InitializeServices(ApiClient, Logger);
         }
     }

@@ -18,7 +18,7 @@ namespace BTCTrader.Configuration
 
         public AppSettings GetAppSettings()
         {
-            return _appSettings;            
+            return _appSettings;
         }
 
         public LoggerConfiguration GetLoggerConfiguration()

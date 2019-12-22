@@ -58,7 +58,7 @@ namespace BTCTrader.Api.Market
                 throw exception;
             }
 
-            var queryString = String.Join("&", markets.Select(m => "marketId=" +m.MarketId));
+            var queryString = String.Join("&", markets.Select(m => "marketId=" + m.MarketId));
             var results = await _apiClient.Get($"{VERSION}markets/orderbooks", $"{queryString}&level={level}");
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<MarketOrderBookModel>>(results.Content, new OrderBookEntryConverter());
         }
@@ -81,4 +81,3 @@ namespace BTCTrader.Api.Market
 
     }
 }
-    

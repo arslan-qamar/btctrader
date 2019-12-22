@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BTCTrader.Models.Market
+﻿namespace BTCTrader.Models.Market
 {
     public class OrderBookEntry
     {

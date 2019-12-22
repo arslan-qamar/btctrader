@@ -37,7 +37,7 @@ namespace BTCTrader.IntegrationTests.Order
         {
             var result = await System.OrderService.GetOrdersAsync();
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m,optionalFields)));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m, optionalFields)));
         }
 
         [Fact]
@@ -49,9 +49,9 @@ namespace BTCTrader.IntegrationTests.Order
             newOrder.Price = 0.01m;
             newOrder.Amount = 0.0001m;
             newOrder.Side = OrderSide.Bid;
-            
+
             //Place New Order
-            var acceptedOrder = await System.OrderService.PlaceNewOrderAsync(newOrder);            
+            var acceptedOrder = await System.OrderService.PlaceNewOrderAsync(newOrder);
             Assert.NotNull(acceptedOrder);
             Assert.Equal(acceptedOrder.Status, OrderStatus.Accepted);
             Assert.True(this.AllPropertiesAreInitialized(acceptedOrder, optionalFields));

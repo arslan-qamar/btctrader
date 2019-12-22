@@ -16,9 +16,9 @@ namespace BTCTrader.Models.Market
 
         [JsonProperty("bids")]
         protected List<OrderBookEntry> Bids { get; set; }
-       
+
     }
- 
+
 
 
 }

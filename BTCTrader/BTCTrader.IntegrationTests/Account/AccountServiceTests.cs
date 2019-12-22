@@ -18,5 +18,13 @@ namespace BTCTrader.IntegrationTests.Account
 
         }
 
+        [Fact]
+        public async void GetTransactions()
+        {
+            var result = await System.AccountService.GetTransactionsAsync();
+            Assert.NotNull(result);
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+
+        }
     }
 }

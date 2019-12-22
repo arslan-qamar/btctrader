@@ -34,7 +34,7 @@ namespace BTCTrader.IntegrationTests.Market
             var markets = await System.MarketService.GetMarketsAsync();
             var result = await System.MarketService.GetMarketTradesAsync(markets[0]);
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m, new System.Collections.Generic.List<string>() { "Fee", "LiquidityType" })));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m, new System.Collections.Generic.List<string>() { "Fee", "LiquidityType", "OrderId" })));
         }
 
         [Fact]

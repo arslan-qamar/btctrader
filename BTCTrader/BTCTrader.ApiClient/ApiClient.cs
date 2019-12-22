@@ -1,6 +1,7 @@
 ﻿using BTCTrader.Entities;
 using BTCTrader.Models;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -14,13 +15,14 @@ namespace BTCTrader.Api
         private readonly string _baseUrl;
         private readonly string _apiKey;
         private readonly string _privateKey;
-        
+        private readonly ILogger _logger;
 
-        public ApiClient(AppSettings appSettings)
+        public ApiClient(AppSettings appSettings, ILogger logger)
         {
             _baseUrl = appSettings.BaseUrl;
             _apiKey = appSettings.ApiKey;
             _privateKey = appSettings.PrivateKey;
+            _logger = logger;
             
         }
 
@@ -41,7 +43,12 @@ namespace BTCTrader.Api
         private async Task<ResponseModel> GetReponse(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
-                Console.WriteLine("Error: " + response.StatusCode.ToString());
+            {
+                var responseDetails = await response.Content.ReadAsStringAsync();
+                var exception = new HttpRequestException($"{response.RequestMessage} Failed with Status Code : {response.StatusCode} and Response Message : {responseDetails}");                                
+                _logger.ForContext<ApiClient>().Error(exception, "");
+                throw exception;
+            }
 
             return new ResponseModel
             {

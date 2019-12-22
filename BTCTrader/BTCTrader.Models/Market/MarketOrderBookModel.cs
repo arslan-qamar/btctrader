@@ -9,7 +9,7 @@ namespace BTCTrader.Models.Market
         public string MarketId { get; set; }
 
         [JsonProperty("snapshotId")]
-        public long SnapshotId { get; set; }
+        public string SnapshotId { get; set; }
 
         [JsonProperty("asks")]
         public List<OrderBookEntry> Asks { get; set; }

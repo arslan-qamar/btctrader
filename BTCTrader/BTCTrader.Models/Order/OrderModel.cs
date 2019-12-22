@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace BTCTrader.Models.Order
 {
@@ -11,10 +12,10 @@ namespace BTCTrader.Models.Order
         public string MarketId { get; set; }
 
         [JsonProperty("price")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         [JsonProperty("amount")]
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -23,10 +24,10 @@ namespace BTCTrader.Models.Order
         public string Side { get; set; }
 
         [JsonProperty("triggerPrice")]
-        public string TriggerPrice { get; set; }
+        public decimal? TriggerPrice { get; set; }
 
         [JsonProperty("targetAmount")]
-        public string TargetAmount { get; set; }
+        public decimal? TargetAmount { get; set; }
 
         [JsonProperty("timeInForce")]
         public string TimeInForce { get; set; }
@@ -41,10 +42,10 @@ namespace BTCTrader.Models.Order
         public string ClientOrderId { get; set; }
 
         [JsonProperty("creationTime")]
-        public string CreationTime { get; set; }
+        public DateTimeOffset CreationTime { get; set; }
 
         [JsonProperty("openAmount")]
-        public string OpenAmount { get; set; }
+        public decimal? OpenAmount { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }

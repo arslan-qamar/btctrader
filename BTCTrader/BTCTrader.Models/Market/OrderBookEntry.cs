@@ -4,7 +4,7 @@ namespace BTCTrader.Models.Market
 {
     public class OrderBookEntry
     {
-        public Decimal Price { get; set; }
-        public Decimal Volume { get; set; }
+        public decimal Price { get; set; }
+        public decimal Volume { get; set; }
     }
 }

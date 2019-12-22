@@ -5,7 +5,6 @@ using BTCTrader.Api.Order;
 using BTCTrader.Api.Trade;
 using BTCTrader.Configuration;
 using Serilog;
-using Serilog.Core;
 
 namespace BTCTrader.Trading.Systems
 {
@@ -35,8 +34,8 @@ namespace BTCTrader.Trading.Systems
         
         public TradingSystem(ITradingSystemConfiguration tradingSystemConfiguration)
         {
-            ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings());
             Logger = tradingSystemConfiguration.GetLoggerConfiguration().CreateLogger();
+            ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings(),Logger);            
             InitializeServices(ApiClient, Logger);
         }
     }

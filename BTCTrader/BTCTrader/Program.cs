@@ -20,9 +20,11 @@ namespace BTCTrader
 
             tradingSystem = new TradingSystem(tradingSystemConfiguration);
 
-            tradingSystem.Logger.Information("Trading System Initialized Successfully");
+            tradingSystem.Logger.ForContext<Program>().Verbose("Trading System Initialized Successfully");
 
-            
+            tradingSystem.Logger.ForContext<Program>().Warning("Trade Responsibily");
+
+
         }
 
         private ITradingSystemConfiguration LoadITradingSystemConfiguration(Dictionary<string, string> cmdArgs)
@@ -39,14 +41,19 @@ namespace BTCTrader
         {
 
             Program p = new Program(args);
-            
-            p.RunMakeMeRich();         
+
+
+            p.RunMakeMeRich();
+
+
 
         }   
 
 
         private void RunMakeMeRich()
         {
+
+            var x  = tradingSystem.AccountService.GetTransactionsAsync().Result;
             
         }
 

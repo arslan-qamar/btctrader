@@ -11,9 +11,10 @@ namespace BTCTrader.IntegrationTests
         public ServiceTestsSystem()
         {            
             var jsonFileConfiguration = new JsonFileConfiguration(BTCTrader.Constants.Configuration.FILE_CONFIGURATION);
-            AppSettings appSettings = jsonFileConfiguration.GetAppSettings();            
-            ApiClient = new ApiClient(appSettings);
-            base.InitializeServices(ApiClient, jsonFileConfiguration.GetLoggerConfiguration().CreateLogger());
+            AppSettings appSettings = jsonFileConfiguration.GetAppSettings();
+            ILogger logger = jsonFileConfiguration.GetLoggerConfiguration().CreateLogger();
+            ApiClient = new ApiClient(appSettings, logger);
+            base.InitializeServices(ApiClient, logger);
         }
     }
 }

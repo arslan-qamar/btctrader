@@ -17,12 +17,12 @@ namespace BTCTrader.Models.Market
         public string MinOrderAmount { get; set; }
 
         [JsonProperty("maxOrderAmount")]
-        public long MaxOrderAmount { get; set; }
+        public decimal MaxOrderAmount { get; set; }
 
         [JsonProperty("amountDecimals")]
-        public long AmountDecimals { get; set; }
+        public decimal AmountDecimals { get; set; }
 
         [JsonProperty("priceDecimals")]        
-        public long PriceDecimals { get; set; }
+        public decimal PriceDecimals { get; set; }
     }
 }

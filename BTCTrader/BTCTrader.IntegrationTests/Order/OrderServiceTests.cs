@@ -46,8 +46,8 @@ namespace BTCTrader.IntegrationTests.Order
             OrderModel newOrder = new OrderModel();
             newOrder.MarketId = "BTC-AUD";
             newOrder.Type = OrderType.Limit;
-            newOrder.Price = "0.01";
-            newOrder.Amount = "0.0001";
+            newOrder.Price = 0.01m;
+            newOrder.Amount = 0.0001m;
             newOrder.Side = OrderSide.Bid;
             
             //Place New Order

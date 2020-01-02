@@ -24,6 +24,8 @@ namespace BTCTrader
 
             tradingSystem.Logger.ForContext<Program>().Warning("Trade Responsibily");
 
+            
+
 
         }
 

@@ -13,5 +13,8 @@ namespace BTCTrader.Entities
         [JsonProperty("privateKey")]
         public string PrivateKey { get; set; }
 
+        [JsonProperty("wssBaseUrl")]
+        public string WssBaseUrl { get; set; }        
+
     }
 }

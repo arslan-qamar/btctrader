@@ -13,35 +13,60 @@ namespace BTCTrader.Api
 {
     public class WSClient : IWSClient
     {
-        private readonly string _baseUrl;
-        private readonly string _wssBaseUrl;
+        
+        private readonly Uri _wssBaseUrl;
         private readonly string _apiKey;
         private readonly string _privateKey;
         private readonly ILogger _logger;
+        private ClientWebSocket _wsocket;
+        private CancellationToken _cancellationToken;
 
-        public WSClient(AppSettings appSettings, ILogger logger)
+        public WSClient(AppSettings appSettings, CancellationToken cancellationToken, ILogger logger)
         {
-            _baseUrl = appSettings.BaseUrl;
             _apiKey = appSettings.ApiKey;
             _privateKey = appSettings.PrivateKey;
-            _wssBaseUrl = appSettings.WssBaseUrl;
+            _wssBaseUrl = new Uri(appSettings.WssBaseUrl);
+            _wsocket = new ClientWebSocket();
             _logger = logger;
+            _cancellationToken = cancellationToken;
 
+            _wsocket.ConnectAsync(_wssBaseUrl, CancellationToken.None).Wait();
+
+            if (_wsocket.State == WebSocketState.Open)
+            {
+                _logger.Information("Web Socket Connection Opened Successfully Base Url : {0}", _wssBaseUrl);
+
+            }
         }
 
-        private String buildSubscribeRequest(List<String> channels, List<String> marketIds)
+        public async Task Subscribe(List<string> channels, List<string> marketIds)
+        {
+            string message = BuildSubscribeRequest(channels, marketIds);
+
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
+            await _wsocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, _cancellationToken);
+
+            while (!_cancellationToken.IsCancellationRequested)
+            {
+                ArraySegment<byte> bytesReceived = new ArraySegment<byte>(new byte[1024]);
+                WebSocketReceiveResult result = await _wsocket.ReceiveAsync(bytesReceived, _cancellationToken);
+                Console.WriteLine(Encoding.UTF8.GetString(bytesReceived.Array, 0, result.Count));
+            }            
+        }
+
+        private String BuildSubscribeRequest(List<string> channels, List<string> marketIds)
         {
             JObject obj = new JObject();
             obj.Add("channels", JToken.FromObject(channels));
             obj.Add("marketIds", JToken.FromObject(marketIds));
             obj.Add("messageType", JToken.FromObject("subscribe"));
 
-            long timestamp = DateTimeOffset.Now.Ticks;
+            long timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             String strToSign = buildStringToSign("/users/self/subscribe", timestamp);
             String signature = SignMessage(strToSign);
-            //obj.Add("signature", signature);
-            //obj.Add("timestamp", timestamp);
-            //obj.Add("key", _apiKey);
+            obj.Add("signature", signature);
+            obj.Add("timestamp", timestamp);
+            obj.Add("key", _apiKey);
 
             return obj.ToString();
         }
@@ -62,30 +87,5 @@ namespace BTCTrader.Api
             }
         }
 
-        public async Task<ClientWebSocket> GetWebSocketClient()
-        {
-            using (ClientWebSocket ws = new ClientWebSocket())
-            {
-                Uri serverUri = new Uri(_wssBaseUrl);
-                await ws.ConnectAsync(serverUri, CancellationToken.None);
-                if (ws.State == WebSocketState.Open)
-                {
-                    _logger.Information("Web Socket Connection Opened Successfully Base Url : {0}", _wssBaseUrl);
-                    
-                    //Console.Write("Input message ('exit' to exit): ");
-                    //string msg = Console.ReadLine();
-                    //if (msg == "exit")
-                    //{
-                    //    break;
-                    //}
-                    //ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(msg));
-                    //await ws.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None);
-                    //ArraySegment<byte> bytesReceived = new ArraySegment<byte>(new byte[1024]);
-                    //WebSocketReceiveResult result = await ws.ReceiveAsync(bytesReceived, CancellationToken.None);
-                    //Console.WriteLine(Encoding.UTF8.GetString(bytesReceived.Array, 0, result.Count));
-                }
-                return ws;
-            }
-        }
     }
 }

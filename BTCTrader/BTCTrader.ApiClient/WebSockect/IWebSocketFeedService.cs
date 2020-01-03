@@ -5,6 +5,6 @@ namespace BTCTrader.Api.WebSockect
     public interface IWebSocketFeedService
     {
 
-        public Task<bool> StartServiceFeed();
+     
     }
 }

@@ -8,7 +8,7 @@ namespace BTCTrader.Api.Account
 {
     public class AccountService : BaseService, IAccountService
     {
-        public AccountService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
+        public AccountService(IApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
         }
 

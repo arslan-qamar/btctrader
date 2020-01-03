@@ -11,7 +11,7 @@ namespace BTCTrader.Api.Order
 {
     public class OrderService : BaseService, IOrderService
     {
-        public OrderService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
+        public OrderService(IApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
         }
 

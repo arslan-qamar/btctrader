@@ -11,7 +11,7 @@ namespace BTCTrader.Api.Market
 {
     public class MarketService : BaseService, IMarketService
     {
-        public MarketService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
+        public MarketService(IApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
         }
 

@@ -1,10 +1,10 @@
-﻿using System.Net.WebSockets;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BTCTrader.Api
 {
     public interface IWSClient
     {
-        Task<ClientWebSocket> GetWebSocketClient();
+        Task Subscribe(List<string> channels, List<string> marketIds);
     }
 }

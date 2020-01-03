@@ -14,7 +14,8 @@ namespace BTCTrader.IntegrationTests
             AppSettings appSettings = jsonFileConfiguration.GetAppSettings();
             ILogger logger = jsonFileConfiguration.GetLoggerConfiguration().CreateLogger();
             ApiClient = new ApiClient(appSettings, logger);
-            base.InitializeServices(ApiClient, logger);
+            WSClient = new WSClient(appSettings, logger);
+            base.InitializeServices(ApiClient, WSClient, logger);
         }
     }
 }

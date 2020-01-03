@@ -7,7 +7,7 @@ namespace BTCTrader.Api.Trade
 {
     public class TradeService : BaseService, ITradeService
     {
-        public TradeService(ApiClient apiClient, ILogger logger) : base(apiClient, logger)
+        public TradeService(IApiClient apiClient, ILogger logger) : base(apiClient, logger)
         {
         }
 

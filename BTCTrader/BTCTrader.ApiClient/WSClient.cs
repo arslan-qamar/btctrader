@@ -17,7 +17,7 @@ namespace BTCTrader.Api
 {
     public class WSClient : IWSClient
     {
-        
+
         private readonly Uri _wssBaseUrl;
         private readonly string _apiKey;
         private readonly string _privateKey;
@@ -26,7 +26,7 @@ namespace BTCTrader.Api
         private ClientWebSocket _wsocket;
         private CancellationToken _cancellationToken;
 
-      
+
         public WSClient(AppSettings appSettings, CancellationToken cancellationToken, ILogger logger)
         {
             _apiKey = appSettings.ApiKey;
@@ -36,17 +36,26 @@ namespace BTCTrader.Api
             _logger = logger;
             _cancellationToken = cancellationToken;
             _bufferSize = appSettings.WssBufferSize;
-            _wsocket.ConnectAsync(_wssBaseUrl, CancellationToken.None).Wait();
 
-            if (_wsocket.State == WebSocketState.Open)
+        }
+
+        private void CreateWebSocketConnection()
+        {
+            if (_wsocket.State == WebSocketState.None)
             {
-                _logger.Information("Web Socket Connection Opened Successfully Base Url : {0}", _wssBaseUrl);
+                _wsocket.ConnectAsync(_wssBaseUrl, CancellationToken.None).Wait();
 
+                if (_wsocket.State == WebSocketState.Open)
+                {
+                    _logger.Information("Web Socket Connection Opened Successfully Base Url : {0}", _wssBaseUrl);
+
+                }
             }
         }
 
         public async Task Subscribe(List<string> channels, List<string> marketIds, Func<string, string, bool> eventReceivedCallBackFunc)
         {
+            CreateWebSocketConnection();
             string message = BuildSubscribeRequest(channels, marketIds);
 
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
@@ -58,29 +67,50 @@ namespace BTCTrader.Api
 
             while (!_cancellationToken.IsCancellationRequested)
             {
-                memoryStream.SetLength(0); //reset Memory Stream
+                memoryStream.SetLength(0); //reset Memory Stream                
                 do
-                {                    
-                    result = await _wsocket.ReceiveAsync(bytesReceived, _cancellationToken);
-                    if (result.Count > 0)
+                {
+                    try
                     {
-                        memoryStream.Write(bytesReceived.Array, bytesReceived.Offset, result.Count);
+                        result = await _wsocket.ReceiveAsync(bytesReceived, _cancellationToken);
+                        if (result.Count > 0)
+                        {
+                            memoryStream.Write(bytesReceived.Array, bytesReceived.Offset, result.Count);
+                        }
+                        else
+                        {
+                            _logger.Warning("WS received Data Length : {0}, Socket State : {1} , Skipping over.", result.Count, _wsocket.State);
+                            continue;
+                        }
                     }
-                    else
+                    catch (OperationCanceledException)
                     {
-                        _logger.Warning("WS received zero: {0}, {1} , Skipping over.", result.Count, _wsocket.State);
-                        continue;
+                        _logger.Information("Operation Canceled using Cancellation Token, Socket State : {0} , Closing Up. ", _wsocket.State);
+                        await StopWebSocketFeed();
+                        return;
+
                     }
                 } while (!result.EndOfMessage); // check end of message mark
 
-                
-                var receivedMessage = Encoding.UTF8.GetString(memoryStream.ToArray(), 0 , memoryStream.ToArray().Length);
+
+                var receivedMessage = Encoding.UTF8.GetString(memoryStream.ToArray(), 0, memoryStream.ToArray().Length);
                 var receivedEvent = JsonConvert.DeserializeObject<BaseFeedEventModel>(receivedMessage);
                 eventReceivedCallBackFunc(receivedEvent.EventType, receivedMessage);
             }
-               
+
         }
-    
+
+        private async Task StopWebSocketFeed()
+        {
+            _logger.Information("Stopping WebSocket For Feed, Socket State : {0}", _wsocket.State);
+            if (_wsocket.State == WebSocketState.Open)
+            {
+                await _wsocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Stopping WebSocket for Feed", _cancellationToken);
+            }
+            _wsocket.Dispose();
+            _wsocket.Abort();
+            _logger.Information("Stopped WebSocket For Feed, Socket State : {0}", _wsocket.State);
+        }
 
         private String BuildSubscribeRequest(List<string> channels, List<string> marketIds)
         {

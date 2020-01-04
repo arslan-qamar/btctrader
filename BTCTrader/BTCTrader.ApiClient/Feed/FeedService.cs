@@ -5,39 +5,30 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using static BTCTrader.Api.Feed.IFeedService;
 
-namespace BTCTrader.Api.WebSockect
+namespace BTCTrader.Api.Feed
 {
-    public class WebSocketFeedService : IWebSocketFeedService
+    public class FeedService : IFeedService
     {
         private IWSClient _wsClient;
         private ILogger _logger;
-
-        public event TickEventHandler OnTickEventReceived;
-        public delegate void TickEventHandler(TickEventModel e);
-
-
-        public event TradeEventHandler OnTradeEventReceived;
-        public delegate void TradeEventHandler(TradeEventModel e);
-
-        public event OrderBookEventHandler OnOrderBookEventReceived;
-        public delegate void OrderBookEventHandler(OrderBookEventModel e);
-
-        public event HeartBeatEventHandler OnHeartBeatEventReceived;
-        public delegate void HeartBeatEventHandler(HeartBeatEventModel e);
-
-        public event ErrorEventHandler OnErrorEventReceived;
-        public delegate void ErrorEventHandler(ErrorEventModel e);
-
-        public WebSocketFeedService(IWSClient wsClient, ILogger logger) 
+        public FeedService(IWSClient wsClient, ILogger logger)
         {
             _wsClient = wsClient;
             _logger = logger;
         }
 
-        public void Subscribe(List<String> channels, List<String> marketIds)
+        public event TickEventHandler OnTickEventReceived;
+        public event TradeEventHandler OnTradeEventReceived;
+        public event OrderBookEventHandler OnOrderBookEventReceived;
+        public event HeartBeatEventHandler OnHeartBeatEventReceived;
+        public event ErrorEventHandler OnErrorEventReceived;
+
+        public async Task Subscribe(List<String> channels, List<String> marketIds)
         {
-            _wsClient.Subscribe(channels, marketIds, EventMessageReceived);
+            await _wsClient.Subscribe(channels, marketIds, EventMessageReceived);
         }
 
 

@@ -17,5 +17,5 @@ namespace BTCTrader.Models.Feed.Event
         }
     }
 
-   
+
 }

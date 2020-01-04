@@ -3,6 +3,7 @@ using BTCTrader.Entities;
 using BTCTrader.Trading.Systems;
 using Moq;
 using Serilog;
+using System.Threading;
 using Xunit;
 
 namespace BTCTrader.UnitTests.Systems
@@ -18,9 +19,11 @@ namespace BTCTrader.UnitTests.Systems
             mockTradingSystemConfiguration.Setup(m => m.GetAppSettings()).Returns(appSettings);
             mockTradingSystemConfiguration.Setup(m => m.GetLoggerConfiguration()).Returns(new Mock<LoggerConfiguration>().Object);
 
-            TradingSystem tradingSystem = new TradingSystem(mockTradingSystemConfiguration.Object);
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            TradingSystem tradingSystem = new TradingSystem(mockTradingSystemConfiguration.Object, cancellationTokenSource);
 
-            AllTradeServicesAreInitialized(tradingSystem);
+            this.AllFieldsAreInitialized(tradingSystem);
+
         }
 
 

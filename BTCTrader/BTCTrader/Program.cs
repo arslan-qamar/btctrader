@@ -15,7 +15,7 @@ namespace BTCTrader
     {
         ITradingSystemConfiguration tradingSystemConfiguration;
         TradingSystem tradingSystem;
-        CancellationTokenSource  cancellationTokenSource;
+        CancellationTokenSource cancellationTokenSource;
         private Dictionary<string, string> cmdArgs;
 
         public Program(string[] args)
@@ -69,9 +69,9 @@ namespace BTCTrader
             tradingSystem.WSFeedService.OnHeartBeatEventReceived += WSFeedService_OnHeartBeatEventReceived;
             tradingSystem.WSFeedService.OnOrderBookEventReceived += WSFeedService_OnOrderBookEventReceived;
 
-            tradingSystem.WSFeedService.Subscribe(new List<string>() {EventType.Tick, EventType.Trade, EventType.OrderBook, EventType.HeartBeat}, new List<string>() { markets[0].MarketId });
-            
-            
+            tradingSystem.WSFeedService.Subscribe(new List<string>() { EventType.Tick, EventType.Trade, EventType.OrderBook, EventType.HeartBeat }, new List<string>() { markets[0].MarketId });
+
+
         }
 
         private void WSFeedService_OnOrderBookEventReceived(OrderBookEventModel e)
@@ -95,7 +95,7 @@ namespace BTCTrader
         }
 
         private void WSFeedService_OnTickEventReceived(TickEventModel e)
-        {            
+        {
             Console.WriteLine(JsonConvert.SerializeObject(e));
         }
     }

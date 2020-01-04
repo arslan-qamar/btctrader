@@ -1,13 +1,12 @@
 ﻿using BTCTrader.Api;
 using BTCTrader.Api.Account;
+using BTCTrader.Api.Feed;
 using BTCTrader.Api.Market;
 using BTCTrader.Api.Order;
 using BTCTrader.Api.Trade;
-using BTCTrader.Api.WebSockect;
 using BTCTrader.Configuration;
-using BTCTrader.Entities.Feed;
-using BTCTrader.Models.Feed.Event;
 using Serilog;
+using System;
 using System.Threading;
 
 namespace BTCTrader.Trading.Systems
@@ -18,12 +17,13 @@ namespace BTCTrader.Trading.Systems
         public IMarketService MarketService;
         public IOrderService OrderService;
         public ITradeService TradeService;
-        public WebSocketFeedService WSFeedService;
-
+        public IFeedService WSFeedService;
         public ILogger Logger;
+
         protected internal IApiClient ApiClient;
         protected internal IWSClient WSClient;
-        protected TradingSystem()
+        protected internal CancellationTokenSource CancellationTokenSource;
+        protected internal TradingSystem()
         {
 
         }
@@ -37,16 +37,23 @@ namespace BTCTrader.Trading.Systems
             MarketService = new MarketService(apiClient, Logger);
             OrderService = new OrderService(apiClient, Logger);
             TradeService = new TradeService(apiClient, Logger);
-            WSFeedService = new WebSocketFeedService(wsClient, Logger);
+            WSFeedService = new FeedService(wsClient, Logger);
         }
 
         public TradingSystem(ITradingSystemConfiguration tradingSystemConfiguration, CancellationTokenSource cancellationTokenSource)
         {
             Logger = tradingSystemConfiguration.GetLoggerConfiguration().CreateLogger();
+            CancellationTokenSource = cancellationTokenSource;
             ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings(), Logger);
             WSClient = new WSClient(tradingSystemConfiguration.GetAppSettings(), cancellationTokenSource.Token, Logger);
             InitializeServices(ApiClient, WSClient, Logger);
-        }       
-    
+        }
+
+
+        public bool StopTradingSystem(TimeSpan afterDuration = new TimeSpan())
+        {
+            CancellationTokenSource.CancelAfter(afterDuration);
+            return CancellationTokenSource.IsCancellationRequested;
+        }
     }
 }

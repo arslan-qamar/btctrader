@@ -18,7 +18,7 @@ namespace BTCTrader.Models.Feed.Event
 
         [JsonProperty("volume")]
         public decimal Volume { get; set; }
-  
+
         [JsonProperty("side")]
         public string Side { get; set; }
     }

@@ -1,22 +1,18 @@
 ﻿using BTCTrader.Entities;
 using BTCTrader.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BTCTrader.Api
 {
     public class ApiClient : IApiClient
     {
-        private readonly string _baseUrl;        
+        private readonly string _baseUrl;
         private readonly string _apiKey;
         private readonly string _privateKey;
         private readonly ILogger _logger;
@@ -25,7 +21,7 @@ namespace BTCTrader.Api
         {
             _baseUrl = appSettings.BaseUrl;
             _apiKey = appSettings.ApiKey;
-            _privateKey = appSettings.PrivateKey;            
+            _privateKey = appSettings.PrivateKey;
             _logger = logger;
 
         }
@@ -132,6 +128,6 @@ namespace BTCTrader.Api
                 var hashedInputeBytes = hash.ComputeHash(bytes);
                 return Convert.ToBase64String(hashedInputeBytes);
             }
-        }     
+        }
     }
 }

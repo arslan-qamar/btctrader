@@ -2,29 +2,10 @@
 {
     public class MessageType
     {
-        class Subscribe : MessageType
-        {
-            public override string ToString()
-            {
-                return "subscribe";
-            }
-        }
 
-        class AddSubscription : MessageType
-        {
-            public override string ToString()
-            {
-                return "addSubscription";
-            }
-        }
-
-
-        class RemoveSubscription : MessageType
-        {
-            public override string ToString()
-            {
-                return "removeSubscription";
-            }
-        }
+        public readonly static string Subscribe = "subscribe";
+        public readonly static string AddSubscription = "addSubscription";
+        public readonly static string RemoveSubscription = "removeSubscription";
+        
     }
 }

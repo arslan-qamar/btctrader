@@ -5,6 +5,8 @@ using BTCTrader.Api.Order;
 using BTCTrader.Api.Trade;
 using BTCTrader.Api.WebSockect;
 using BTCTrader.Configuration;
+using BTCTrader.Entities.Feed;
+using BTCTrader.Models.Feed.Event;
 using Serilog;
 using System.Threading;
 
@@ -21,7 +23,6 @@ namespace BTCTrader.Trading.Systems
         public ILogger Logger;
         protected internal IApiClient ApiClient;
         protected internal IWSClient WSClient;
-
         protected TradingSystem()
         {
 
@@ -45,6 +46,7 @@ namespace BTCTrader.Trading.Systems
             ApiClient = new ApiClient(tradingSystemConfiguration.GetAppSettings(), Logger);
             WSClient = new WSClient(tradingSystemConfiguration.GetAppSettings(), cancellationTokenSource.Token, Logger);
             InitializeServices(ApiClient, WSClient, Logger);
-        }
+        }       
+    
     }
 }

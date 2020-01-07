@@ -15,6 +15,9 @@ namespace BTCTrader.Api.Feed
         public event OrderBookEventHandler OnOrderBookEventReceived;
         public delegate void OrderBookEventHandler(OrderBookEventModel e);
 
+        public event OrderChangeEventHandler OnOrderChangeEventReceived;
+        public delegate void OrderChangeEventHandler(OrderChangeEventModel e);
+
         public event HeartBeatEventHandler OnHeartBeatEventReceived;
         public delegate void HeartBeatEventHandler(HeartBeatEventModel e);
 

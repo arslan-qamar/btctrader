@@ -23,8 +23,10 @@ namespace BTCTrader.Api.Feed
         public event TickEventHandler OnTickEventReceived;
         public event TradeEventHandler OnTradeEventReceived;
         public event OrderBookEventHandler OnOrderBookEventReceived;
+        public event OrderChangeEventHandler OnOrderChangeEventReceived;
         public event HeartBeatEventHandler OnHeartBeatEventReceived;
         public event ErrorEventHandler OnErrorEventReceived;
+
 
         public async Task Subscribe(List<String> channels, List<String> marketIds)
         {
@@ -43,6 +45,7 @@ namespace BTCTrader.Api.Feed
                     OnTickEventReceived?.Invoke(JsonConvert.DeserializeObject<TickEventModel>(content));
                     break;
                 case EventType.OrderChange:
+                    OnOrderChangeEventReceived?.Invoke(JsonConvert.DeserializeObject<OrderChangeEventModel>(content));
                     break;
                 case EventType.OrderBook:
                     OnOrderBookEventReceived?.Invoke(JsonConvert.DeserializeObject<OrderBookEventModel>(content, new OrderBookEntryConverter()));

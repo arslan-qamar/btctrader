@@ -68,10 +68,16 @@ namespace BTCTrader
             tradingSystem.WSFeedService.OnErrorEventReceived += WSFeedService_OnErrorEventReceived;
             tradingSystem.WSFeedService.OnHeartBeatEventReceived += WSFeedService_OnHeartBeatEventReceived;
             tradingSystem.WSFeedService.OnOrderBookEventReceived += WSFeedService_OnOrderBookEventReceived;
+            tradingSystem.WSFeedService.OnOrderChangeEventReceived += WSFeedService_OnOrderChangeEventReceived;
 
             await tradingSystem.WSFeedService.Subscribe(new List<string>() { EventType.Tick, EventType.Trade, EventType.OrderBook, EventType.OrderChange, EventType.HeartBeat }, new List<string>() { markets[0].MarketId });
 
 
+        }
+
+        private void WSFeedService_OnOrderChangeEventReceived(OrderChangeEventModel e)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(e));
         }
 
         private void WSFeedService_OnOrderBookEventReceived(OrderBookEventModel e)

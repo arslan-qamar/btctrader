@@ -2,15 +2,14 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BTCTrader.Models.Feed.Event
 {
     public class OrderChangeEventModel : OrderModel
     {
-        
-        [JsonProperty("openVolume")]        
-        public long OpenVolume { get; set; }     
+
+        [JsonProperty("openVolume")]
+        public decimal OpenVolume { get; set; }
 
         [JsonProperty("triggerStatus")]
         public string TriggerStatus { get; set; }
@@ -19,7 +18,7 @@ namespace BTCTrader.Models.Feed.Event
         public List<object> Trades { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset Timestamp { get; set; 
-       
+        public DateTimeOffset Timestamp { get; set; }
+
     }
 }

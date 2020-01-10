@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTCTrader.Configuration", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0D1BE5D-1842-4C2D-8065-BB07C20CD7C9}"
 	ProjectSection(SolutionItems) = preProject
-		appsettings-arslan.json = appsettings-arslan.json
+		appsettings-zt.json = appsettings-zt.json
 		appsettings.json = appsettings.json
 	EndProjectSection
 EndProject

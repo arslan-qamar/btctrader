@@ -7,9 +7,10 @@ using Xunit;
 
 namespace BTCTrader.IntegrationTests.Order
 {
+    [CollectionDefinition(TestConstants.OrderTestsCollection, DisableParallelization = false)]
     public class OrderServiceTests : ServiceTestsBase
     {
-        List<String> optionalFields = new List<String>() { "ClientOrderId", "TriggerPrice", "TargetAmount", "TimeInForce", "PostOnly", "SelfTrade" };
+        List<String> optionalFields = new List<String>() { nameof(OrderModel.ClientOrderId), nameof(OrderModel.TriggerPrice), nameof(OrderModel.TargetAmount), nameof(OrderModel.TimeInForce), nameof(OrderModel.PostOnly), nameof(OrderModel.SelfTrade) };
         public OrderServiceTests(ServiceTestsSystem system) : base(system)
         {
         }
@@ -21,7 +22,7 @@ namespace BTCTrader.IntegrationTests.Order
             var markets = await System.MarketService.GetMarketsAsync();
             var result = await System.OrderService.CancelAllAsync(markets);
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+            result.ForEach(m => Assert.True(!string.IsNullOrEmpty(m.OrderId)));
         }
 
         [Fact]
@@ -29,7 +30,7 @@ namespace BTCTrader.IntegrationTests.Order
         {
             var result = await System.OrderService.GetOpenOrdersAsync();
             Assert.NotNull(result);
-            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+            result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m, optionalFields)));
         }
 
         [Fact]

@@ -1,0 +1,141 @@
+{
+  "AppSettings": {
+    "BaseUrl": "https://api.btcmarkets.net",
+    "ApiKey": "YOUR_BTCMARKET_API_KEY",
+    "PrivateKey": "YOUR_BTCMARKET_PRIVATE_KEY",
+    "WssBaseUrl": "wss://socket.btcmarkets.net/v2",
+    "WssBufferSize": 1024
+  },
+
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.File" ],
+    "LevelSwitches": {
+      "$consoleControlSwitch": "Verbose"      
+    },
+    "MinimumLevel": {
+      "Default": "Verbose"
+    },
+    "WriteTo": [
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "MinimumLevel": "Verbose",
+            "WriteTo": [
+              {
+                "Name": "Console",
+                "Args": {
+                  "outputTemplate": "[{Timestamp:HH:mm:ss}] {SourceContext} [{Level}] {Message}{NewLine}{Exception}",
+                  "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console"
+                }
+              }
+            ]
+          },
+          "restrictedToMinimumLevel": "Verbose",
+          "levelSwitch": "$consoleControlSwitch"
+        }
+      },
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "MinimumLevel": "Error",
+            "WriteTo": [
+              {
+                "Name": "Async",
+                "Args": {
+                  "configure": [
+                    {
+                      "Name": "File",
+                      "Args": {
+                        "path": "Error-logs.txt",
+                        "outputTemplate": "{Timestamp},[{Level}],{SourceContext},{MachineName},{ThreadId},{Message}{NewLine}{Exception}"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "restrictedToMinimumLevel": "Error"          
+        }
+      },
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "MinimumLevel": "Warning",
+            "WriteTo": [
+              {
+                "Name": "Async",
+                "Args": {
+                  "configure": [
+                    {
+                      "Name": "File",
+                      "Args": {
+                        "path": "Warning-logs.txt",
+                        "outputTemplate": "{Timestamp},[{Level}],{SourceContext},{MachineName},{ThreadId},{Message}{NewLine}{Exception}"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "Filter": [
+              {
+                "Name": "ByIncludingOnly",
+                "Args": {
+                  "expression": "@Level = 'Warning'"
+                }
+              }
+            ]
+          },
+          "restrictedToMinimumLevel": "Warning"          
+        }
+      },
+      {
+        "Name": "Logger",
+        "Args": {
+          "configureLogger": {
+            "MinimumLevel": "Verbose",
+            "WriteTo": [
+              {
+                "Name": "Async",
+                "Args": {
+                  "configure": [
+                    {
+                      "Name": "File",
+                      "Args": {
+                        "path": "All-logs.txt",
+                        "outputTemplate": "{Timestamp},[{Level}],{SourceContext},{MachineName},{ThreadId},{Message}{NewLine}{Exception}"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+    "Properties": {
+      "Application": "BTCTrader"
+    },
+    "Destructure": [
+
+      {
+        "Name": "ToMaximumDepth",
+        "Args": { "maximumDestructuringDepth": 3 }
+      },
+      {
+        "Name": "ToMaximumStringLength",
+        "Args": { "maximumStringLength": 10 }
+      },
+      {
+        "Name": "ToMaximumCollectionCount",
+        "Args": { "maximumCollectionCount": 5 }
+      }
+    ]
+  }
+}

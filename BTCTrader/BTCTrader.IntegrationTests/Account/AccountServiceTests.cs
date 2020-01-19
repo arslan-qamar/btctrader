@@ -26,5 +26,14 @@ namespace BTCTrader.IntegrationTests.Account
             result.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
 
         }
+
+        [Fact]
+        public async void GetTradingFees()
+        {
+            var result = await System.AccountService.GetTradingFees();
+            Assert.NotNull(result);
+            result.FeeByMarkets.ForEach(m => Assert.True(this.AllPropertiesAreInitialized(m)));
+
+        }
     }
 }

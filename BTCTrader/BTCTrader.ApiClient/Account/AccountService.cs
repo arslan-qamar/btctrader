@@ -12,6 +12,11 @@ namespace BTCTrader.Api.Account
         {
         }
 
+        public async Task<TradingFeesModel> GetTradingFees()
+        {
+            var result = await _apiClient.Get($"{VERSION}accounts/me/trading-fees", string.Empty);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<TradingFeesModel>(result.Content);
+        }
         public async Task<List<AssetModel>> GetAssetsAsync()
         {
             var result = await _apiClient.Get($"{VERSION}accounts/me/balances", string.Empty);
